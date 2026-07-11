@@ -31,6 +31,11 @@ export default function Card({ animal }: { animal: Animal }) {
               ✓ Vacunado
             </span>
           )}
+          {animal.estadoSalud && (
+            <span className="px-2 py-0.5 rounded-full text-xs font-semibold border border-black text-black">
+              {animal.estadoSalud}
+            </span>
+          )}
         </div>
 
         {/* Descripción */}
@@ -40,6 +45,9 @@ export default function Card({ animal }: { animal: Animal }) {
         <p className="text-sm text-[#525252] mt-3"> {animal.ciudad}</p>
         {animal.carnet && (
           <p className="text-xs text-[#525252] mt-1">🪪 {animal.carnet}</p>
+        )}
+        {animal.publicadoPor && (
+          <p className="text-xs text-[#525252] mt-1">Publicado por {animal.publicadoPor}</p>
         )}
 
         <Button
