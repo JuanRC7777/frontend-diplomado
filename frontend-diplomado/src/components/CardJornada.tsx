@@ -1,4 +1,5 @@
 import type { Jornada } from "../types";
+import Button from "./Button";
 
 export default function CardJornada({ jornada }: { jornada: Jornada }) {
   return (
@@ -21,6 +22,10 @@ export default function CardJornada({ jornada }: { jornada: Jornada }) {
       <p className="text-sm text-[#6B675F] mt-3">
         Organiza: <span className="font-semibold">{jornada.organizador}</span> · {jornada.cupos} cupos
       </p>
+
+      <Button variant="secondary" size="sm" fullWidth className="mt-4">
+        Ver detalles
+      </Button>
     </article>
   );
 }

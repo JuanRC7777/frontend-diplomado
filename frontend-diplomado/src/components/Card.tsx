@@ -1,4 +1,5 @@
 import type { Animal } from "../types";
+import Button from "./Button";
 
 export default function Card({ animal }: { animal: Animal }) {
   return (
@@ -40,6 +41,16 @@ export default function Card({ animal }: { animal: Animal }) {
         {animal.carnet && (
           <p className="text-xs text-[#6B675F] mt-1">🪪 {animal.carnet}</p>
         )}
+
+        <Button
+          variant="primary"
+          size="sm"
+          fullWidth
+          className="mt-4"
+          onClick={() => window.open(`mailto:${animal.contacto}`)}
+        >
+          Quiero adoptarlo
+        </Button>
       </div>
     </article>
   );
