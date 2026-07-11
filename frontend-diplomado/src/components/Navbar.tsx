@@ -12,6 +12,7 @@ const LINKS = [
   { to: "/", label: "Inicio", end: true },
   { to: "/adopcion", label: "Adopción", end: false },
   { to: "/vacunacion", label: "Vacunación", end: false },
+  { to: "/acerca", label: "Acerca de", end: false },
 ];
 
 export default function Navbar() {

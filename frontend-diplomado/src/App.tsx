@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Adopcion from "./pages/Adopcion";
 import Vacunacion from "./pages/Vacunacion";
 import Auth from "./pages/Auth";
+import About from "./pages/About";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { AdopcionesProvider } from "./context/AdopcionesContext";
@@ -23,6 +24,7 @@ export default function App() {
                   <Route path="/adopcion" element={<Adopcion />} />
                   <Route path="/vacunacion" element={<Vacunacion />} />
                   <Route path="/auth" element={<Auth />} />
+                  <Route path="/acerca" element={<About />} />
                 </Routes>
               </main>
               <Footer />
