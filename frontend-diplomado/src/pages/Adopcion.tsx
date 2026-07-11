@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { AdopcionesContext } from "../context/AdopcionesContext";
 import Card from "../components/Card";
 import FormField from "../components/FormField";
+import type { Animal } from "../types";
 
 /* 1. Molde vacío del formulari */
 const FORM_INICIAL = {
@@ -16,19 +17,88 @@ const FORM_INICIAL = {
   foto: "",
   contacto: "",
   telefono: "",
+  vacunado: "no",
 };
 
 export default function Adopcion() {
   /* 2. Estados */
-  const { adopciones } = useContext(AdopcionesContext);
+  const { adopciones, agregarAdopcion } = useContext(AdopcionesContext);
   const [pestana, setPestana] = useState<"consulta" | "registro">("consulta");
   const [filtro, setFiltro] = useState("");
   const [form, setForm] = useState(FORM_INICIAL);
+  const [errores, setErrores] = useState<Record<string, string>>({});
+  const [mensajeExito, setMensajeExito] = useState("");
 
   /* 3. Un solo onChange para todos los campos */
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setErrores((prev) => ({ ...prev, [e.target.name]: "" }));
   };
+
+  // Funcion de validacion 
+    function validar() {
+    const errs: Record<string, string> = {};
+    if (!form.nombre.trim()) errs.nombre = "El nombre es requerido.";
+    if (!form.especie) errs.especie = "Selecciona la especie.";
+    if (!form.raza.trim()) errs.raza = "La raza es requerida.";
+    if (!form.edad.trim()) {
+      errs.edad = "La edad es requerida.";
+    } else if (isNaN(Number(form.edad)) || Number(form.edad) < 0) {
+      errs.edad = "Debe ser un número válido.";
+    }
+    if (!form.tamano) errs.tamano = "El tamaño es requerido.";
+    if (!form.sexo) errs.sexo = "El sexo es requerido.";
+    if (!form.ciudad.trim()) errs.ciudad = "La ciudad es requerida.";
+    if (!form.contacto.trim()) {
+      errs.contacto = "El correo es requerido.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.contacto)) {
+      errs.contacto = "Formato de correo inválido.";
+    }
+    if (!form.telefono.trim()) errs.telefono = "El teléfono es requerido.";
+    return errs;
+  }
+
+  //Funcion de handleSubmit
+    function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+
+    const errs = validar();
+    if (Object.keys(errs).length > 0) {
+      setErrores(errs);
+      return;
+    }
+
+    const nuevo: Animal = {
+      id: Date.now(),
+      nombre: form.nombre,
+      especie: form.especie,
+      raza: form.raza,
+      edad: Number(form.edad),
+      unidadEdad: "años",
+      tamano: form.tamano,
+      sexo: form.sexo,
+      estadoSalud: "Buena",
+      vacunado: form.vacunado === "si",
+      esterilizado: false,
+      descripcion: form.descripcion,
+      foto: form.foto || "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400",
+      ciudad: form.ciudad,
+      contacto: form.contacto,
+      telefono: form.telefono,
+      fecha_publicacion: new Date().toISOString().split("T")[0],
+    };
+
+    agregarAdopcion(nuevo);
+    setMensajeExito("¡Publicación creada! Ya aparece en el listado.");
+    setForm(FORM_INICIAL);
+    setErrores({});
+
+    setTimeout(() => {
+      setMensajeExito("");
+      setPestana("consulta");
+    }, 2000);
+  }
+
 
   /* 4. Lista filtrada por el buscador */
   const adopcionesFiltradas = adopciones.filter(
@@ -96,57 +166,77 @@ export default function Adopcion() {
         </>
       )}
 
-      {/* 7. PESTAÑA REGISTRO: el formulario */}
+            {/* 7. PESTAÑA REGISTRO: el formulario */}
       {pestana === "registro" && (
-        <form className="max-w-2xl mt-6 bg-white rounded-2xl shadow-sm border border-[rgba(38,70,83,0.1)] p-8 grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <FormField label="Nombre del animal" name="nombre" value={form.nombre} onChange={handleChange} placeholder="Ej: Mango" />
-          <FormField
-            label="Especie"
-            name="especie"
-            value={form.especie}
-            onChange={handleChange}
-            options={[
-              { value: "Perro", label: "Perro" },
-              { value: "Gato", label: "Gato" },
-              { value: "Otro", label: "Otro" },
-            ]}
-          />
-          <FormField label="Raza" name="raza" value={form.raza} onChange={handleChange} placeholder="Ej: Criollo" />
-          <FormField label="Edad (años)" name="edad" type="number" value={form.edad} onChange={handleChange} placeholder="Ej: 2" />
-          <FormField
-            label="Tamaño"
-            name="tamano"
-            value={form.tamano}
-            onChange={handleChange}
-            options={[
-              { value: "Pequeño", label: "Pequeño" },
-              { value: "Mediano", label: "Mediano" },
-              { value: "Grande", label: "Grande" },
-            ]}
-          />
-          <FormField
-            label="Sexo"
-            name="sexo"
-            value={form.sexo}
-            onChange={handleChange}
-            options={[
-              { value: "Macho", label: "Macho" },
-              { value: "Hembra", label: "Hembra" },
-            ]}
-          />
-          <FormField label="Ciudad" name="ciudad" value={form.ciudad} onChange={handleChange} placeholder="Ej: Bogotá" />
-          <FormField label="URL de foto (opcional)" name="foto" value={form.foto} onChange={handleChange} placeholder="https://..." />
-          <FormField label="Descripción" name="descripcion" value={form.descripcion} onChange={handleChange} placeholder="Personalidad, necesidades..." />
-          <FormField label="Correo de contacto" name="contacto" type="email" value={form.contacto} onChange={handleChange} placeholder="tu@correo.com" />
-          <FormField label="Teléfono" name="telefono" type="tel" value={form.telefono} onChange={handleChange} placeholder="Ej: 300 123 4567" />
+        <>
+          {mensajeExito && (
+            <div className="max-w-2xl mt-6 p-4 bg-emerald-50 border border-emerald-200 rounded-lg text-emerald-700 font-semibold">
+              ✅ {mensajeExito}
+            </div>
+          )}
+          <form onSubmit={handleSubmit} className="max-w-2xl mt-6 bg-white rounded-2xl shadow-sm border border-[rgba(38,70,83,0.1)] p-8 grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <FormField label="Nombre del animal" name="nombre" value={form.nombre} onChange={handleChange} error={errores.nombre} placeholder="Ej: Mango" />
+            <FormField
+              label="Especie"
+              name="especie"
+              value={form.especie}
+              onChange={handleChange}
+              error={errores.especie}
+              options={[
+                { value: "Perro", label: "Perro" },
+                { value: "Gato", label: "Gato" },
+                { value: "Otro", label: "Otro" },
+              ]}
+            />
+            <FormField label="Raza" name="raza" value={form.raza} onChange={handleChange} error={errores.raza} placeholder="Ej: Criollo" />
+            <FormField label="Edad (años)" name="edad" type="number" value={form.edad} onChange={handleChange} error={errores.edad} placeholder="Ej: 2" />
+            <FormField
+              label="Tamaño"
+              name="tamano"
+              value={form.tamano}
+              onChange={handleChange}
+              error={errores.tamano}
+              options={[
+                { value: "Pequeño", label: "Pequeño" },
+                { value: "Mediano", label: "Mediano" },
+                { value: "Grande", label: "Grande" },
+              ]}
+            />
+            <FormField
+              label="Sexo"
+              name="sexo"
+              value={form.sexo}
+              onChange={handleChange}
+              error={errores.sexo}
+              options={[
+                { value: "Macho", label: "Macho" },
+                { value: "Hembra", label: "Hembra" },
+              ]}
+            />
+            <FormField
+              label="¿Vacunado?"
+              name="vacunado"
+              value={form.vacunado}
+              onChange={handleChange}
+              options={[
+                { value: "si", label: "Sí" },
+                { value: "no", label: "No" },
+              ]}
+            />
+            <FormField label="Ciudad" name="ciudad" value={form.ciudad} onChange={handleChange} error={errores.ciudad} placeholder="Ej: Bogotá" />
+            <FormField label="Correo de contacto" name="contacto" type="email" value={form.contacto} onChange={handleChange} error={errores.contacto} placeholder="tu@correo.com" />
+            <FormField label="Teléfono" name="telefono" type="tel" value={form.telefono} onChange={handleChange} error={errores.telefono} placeholder="Ej: 300 123 4567" />
+            <FormField label="URL de foto (opcional)" name="foto" value={form.foto} onChange={handleChange} placeholder="https://..." />
+            <FormField label="Descripción" name="descripcion" value={form.descripcion} onChange={handleChange} placeholder="Personalidad, necesidades..." />
 
-          <button
-            type="submit"
-            className="sm:col-span-2 bg-[#264653] text-white font-semibold py-3 rounded-lg hover:bg-[#1b3540]"
-          >
-            Publicar en adopción
-          </button>
-        </form>
+            <button
+              type="submit"
+              className="sm:col-span-2 bg-[#264653] text-white font-semibold py-3 rounded-lg hover:bg-[#1b3540]"
+            >
+              Publicar en adopción
+            </button>
+          </form>
+        </>
       )}
     </div>
   );
