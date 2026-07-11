@@ -17,3 +17,18 @@ export interface Animal {
   telefono: string;
   fecha_publicacion: string;
 }
+export interface Jornada {
+  id: number;
+  titulo: string;
+  lugar: string;
+  ciudad: string;
+  fecha: string;
+  hora: string;
+  horaFin: string;
+  vacunas: string[];
+  organizador: string;
+  contacto: string;
+  cupos: number;
+  descripcion: string;
+  fecha_publicacion: string;
+}

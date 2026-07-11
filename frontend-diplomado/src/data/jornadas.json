@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "titulo": "Jornada de Vacunación Parque Central",
+    "lugar": "Parque Central, Calle 10 #5-20",
+    "ciudad": "Bogotá",
+    "fecha": "2026-08-15",
+    "hora": "08:00",
+    "horaFin": "14:00",
+    "vacunas": ["Antirrábica", "Parvovirus", "Moquillo"],
+    "organizador": "Fundación Huellitas",
+    "contacto": "huellitas@correo.com",
+    "cupos": 80,
+    "descripcion": "Jornada gratuita para perros y gatos, orden de llegada.",
+    "fecha_publicacion": "2026-07-11"
+  }
+]
