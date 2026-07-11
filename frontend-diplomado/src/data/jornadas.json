@@ -1,17 +1,57 @@
 [
+    {
+        "id": 1,
+        "titulo": "Jornada de Vacunación Parque Central",
+        "lugar": "Parque Central cerca de neverland",
+        "ciudad": "Bogotá",
+        "fecha": "2026-08-15",
+        "hora": "08:00",
+        "horaFin": "14:00",
+        "vacunas": [
+            "Antirrábica",
+            "Parvovirus",
+            "Moquillo"
+        ],
+        "organizador": "Fundación Huellitas",
+        "contacto": "huellitas@correo.com",
+        "cupos": 80,
+        "descripcion": "Jornada gratuita para perros y gatos, orden de llegada.",
+        "fecha_publicacion": "2026-07-11"
+    },
   {
-    "id": 1,
-    "titulo": "Jornada de Vacunación Parque Central",
-    "lugar": "Parque Central cerca de neverland",
-    "ciudad": "Bogotá",
-    "fecha": "2026-08-15",
-    "hora": "08:00",
-    "horaFin": "14:00",
-    "vacunas": ["Antirrábica", "Parvovirus", "Moquillo"],
-    "organizador": "Fundación Huellitas",
-    "contacto": "huellitas@correo.com",
-    "cupos": 80,
-    "descripcion": "Jornada gratuita para perros y gatos, orden de llegada.",
-    "fecha_publicacion": "2026-07-11"
-  }
+        "id": 2,
+        "titulo": "Campaña de Esterilización Canina y Felina",
+        "lugar": "Centro Comunitario La Esperanza",
+        "ciudad": "Medellín",
+        "fecha": "2026-08-22",
+        "hora": "07:30",
+        "horaFin": "15:30",
+        "vacunas": [
+            "Antirrábica"
+        ],
+        "organizador": "Alcaldía de Medellín",
+        "contacto": "mascotas@medellin.gov.co",
+        "cupos": 60,
+        "descripcion": "Jornada de vacunación y orientación sobre el cuidado responsable de mascotas.",
+        "fecha_publicacion": "2026-07-12"
+    },
+    {
+        "id": 3,
+        "titulo": "Vacunatón por el Bienestar Animal",
+        "lugar": "Polideportivo Atalaya",
+        "ciudad": "Cúcuta",
+        "fecha": "2026-09-05",
+        "hora": "09:00",
+        "horaFin": "13:00",
+        "vacunas": [
+            "Antirrábica",
+            "Triple Felina",
+            "Séxtuple Canina"
+        ],
+        "organizador": "Secretaría de Salud de Cúcuta",
+        "contacto": "bienestaranimal@cucuta.gov.co",
+        "cupos": 120,
+        "descripcion": "Vacunación gratuita para perros y gatos con revisión veterinaria básica incluida.",
+        "fecha_publicacion": "2026-07-15"
+    }
 ]
