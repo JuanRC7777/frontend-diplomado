@@ -16,7 +16,9 @@
     "ciudad": "Bogotá",
     "contacto": "correo@ejemplo.com",
     "telefono": "300 123 4567",
-    "fecha_publicacion": "2026-07-01"
+    "fecha_publicacion": "2026-07-01",
+    "carnet": "BOG-2026-0001",
+    "publicadoPor": "Ana Pérez"
   },
   {
   "id": 2,
@@ -35,7 +37,9 @@
   "ciudad": "Medellín",
   "contacto": "misu@ejemplo.com",
   "telefono": "301 456 7890",
-  "fecha_publicacion": "2026-07-05"
+  "fecha_publicacion": "2026-07-05",
+  "carnet": "MED-2026-0002",
+  "publicadoPor": "Carlos Ruiz"
 },
 {
   "id": 3,
@@ -54,6 +58,8 @@
   "ciudad": "Cúcuta",
   "contacto": "max@ejemplo.com",
   "telefono": "302 987 6543",
-  "fecha_publicacion": "2026-07-08"
+  "fecha_publicacion": "2026-07-08",
+  "carnet": "CUC-2026-0003",
+  "publicadoPor": "Laura Gómez"
 }
 ]

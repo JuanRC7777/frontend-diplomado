@@ -37,6 +37,9 @@ export default function Card({ animal }: { animal: Animal }) {
 
         {/* Ubicación */}
         <p className="text-sm text-[#6B675F] mt-3"> {animal.ciudad}</p>
+        {animal.carnet && (
+          <p className="text-xs text-[#6B675F] mt-1">🪪 {animal.carnet}</p>
+        )}
       </div>
     </article>
   );

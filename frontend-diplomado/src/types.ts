@@ -16,6 +16,8 @@ export interface Animal {
   contacto: string;
   telefono: string;
   fecha_publicacion: string;
+  carnet?: string;
+  publicadoPor?: string;
 }
 export interface Jornada {
   id: number;
