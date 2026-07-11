@@ -19,6 +19,9 @@ export default function Navbar() {
           <NavLink to="/adopcion" className={linkClass}>
             Adopción
           </NavLink>
+          <NavLink to="/vacunacion" className={linkClass}>
+            Vacunación
+          </NavLink>
         </div>
       </div>
     </nav>
