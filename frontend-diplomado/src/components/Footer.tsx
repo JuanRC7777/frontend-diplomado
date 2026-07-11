@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#264653] mt-auto">
+    <footer className="bg-[#171717] mt-auto">
       <div className="max-w-6xl mx-auto px-4 py-10">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
           <div>
@@ -14,7 +14,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold text-[#F4A261] mb-3">Navegación</h4>
+            <h4 className="font-bold text-white mb-3">Navegación</h4>
             <ul className="space-y-1.5 text-sm text-white/70">
               <li><Link to="/" className="hover:text-white transition-colors">Inicio</Link></li>
               <li><Link to="/adopcion" className="hover:text-white transition-colors">Adopción</Link></li>
@@ -24,7 +24,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold text-[#2A9D8F] mb-3">Contacto</h4>
+            <h4 className="font-bold text-white mb-3">Contacto</h4>
             <ul className="space-y-1.5 text-sm text-white/70">
               <li>📧 info@pawcare.co</li>
               <li>📍 Colombia</li>

@@ -124,15 +124,15 @@ export default function Vacunacion() {
 
     return (
         <div className="p-10">
-            <h1 className="text-3xl font-bold text-[#264653]">Vacunación</h1>
+            <h1 className="text-3xl font-bold text-[#171717]">Vacunación</h1>
 
             {/* Pestañas */}
-            <div className="flex gap-2 mt-6 border-b border-[rgba(38,70,83,0.15)]">
+            <div className="flex gap-2 mt-6 border-b border-[rgba(0,0,0,0.15)]">
                 <button
                     onClick={() => setPestana("consulta")}
                     className={`px-6 py-3 text-sm font-semibold border-b-2 ${pestana === "consulta"
-                            ? "border-[#2A9D8F] text-[#264653]"
-                            : "border-transparent text-[#6B675F]"
+                            ? "border-[#525252] text-[#171717]"
+                            : "border-transparent text-[#525252]"
                         }`}
                 >
                     🔍 Consultar jornadas
@@ -140,8 +140,8 @@ export default function Vacunacion() {
                 <button
                     onClick={() => setPestana("registro")}
                     className={`px-6 py-3 text-sm font-semibold border-b-2 ${pestana === "registro"
-                            ? "border-[#2A9D8F] text-[#264653]"
-                            : "border-transparent text-[#6B675F]"
+                            ? "border-[#525252] text-[#171717]"
+                            : "border-transparent text-[#525252]"
                         }`}
                 >
                     ➕Publicar jornada
@@ -156,10 +156,10 @@ export default function Vacunacion() {
                         placeholder="Buscar por título, ciudad u organizador..."
                         value={filtro}
                         onChange={(e) => setFiltro(e.target.value)}
-                        className="w-full sm:w-96 px-4 py-2.5 mt-6 rounded-lg border border-[rgba(38,70,83,0.2)] bg-white focus:outline-none focus:ring-2 focus:ring-[#2A9D8F]"
+                        className="w-full sm:w-96 px-4 py-2.5 mt-6 rounded-lg border border-[rgba(0,0,0,0.2)] bg-white focus:outline-none focus:ring-2 focus:ring-[#525252]"
                     />
 
-                    <p className="text-sm text-[#6B675F] mt-4">
+                    <p className="text-sm text-[#525252] mt-4">
                         {jornadasFiltradas.length} jornadas disponibles
                     </p>
 
@@ -170,7 +170,7 @@ export default function Vacunacion() {
                     </div>
 
                     {jornadasFiltradas.length === 0 && (
-                        <div className="text-center py-20 text-[#6B675F]">
+                        <div className="text-center py-20 text-[#525252]">
                             <p className="text-5xl mb-4">💉</p>
                             <p className="text-lg font-semibold">No se encontraron jornadas.</p>
                         </div>
@@ -182,11 +182,11 @@ export default function Vacunacion() {
             {pestana === "registro" && (
                 <>
                     {mensajeExito && (
-                        <div className="max-w-2xl mt-6 p-4 bg-emerald-50 border border-emerald-200 rounded-lg text-emerald-700 font-semibold">
+                        <div className="max-w-2xl mt-6 p-4 bg-neutral-100 border border-neutral-300 rounded-lg text-black font-semibold">
                             ✅ {mensajeExito}
                         </div>
                     )}
-                    <form onSubmit={handleSubmit} className="max-w-2xl mt-6 bg-white rounded-2xl shadow-sm border border-[rgba(38,70,83,0.1)] p-8 grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <form onSubmit={handleSubmit} className="max-w-2xl mt-6 bg-white rounded-2xl shadow-sm border border-[rgba(0,0,0,0.1)] p-8 grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <div className="sm:col-span-2">
                             <FormField label="Título de la jornada" name="titulo" value={form.titulo} onChange={handleChange} error={errores.titulo} placeholder="Ej: Jornada Barrio Centro" />
                         </div>
@@ -204,8 +204,8 @@ export default function Vacunacion() {
 
                         {/* Selector de vacunas tipo chips */}
                         <div className="sm:col-span-2">
-                            <p className="text-sm font-semibold text-[#264653] mb-2">
-                                Vacunas disponibles <span className="text-[#E76F51]">*</span>
+                            <p className="text-sm font-semibold text-[#171717] mb-2">
+                                Vacunas disponibles <span className="text-black">*</span>
                             </p>
                             <div className="flex flex-wrap gap-2">
                                 {VACUNAS_OPCIONES.map((v) => (
@@ -214,8 +214,8 @@ export default function Vacunacion() {
                                         type="button"
                                         onClick={() => toggleVacuna(v)}
                                         className={`px-3 py-1.5 rounded-full text-sm font-semibold border-2 transition-all duration-150 ${vacunasSeleccionadas.includes(v)
-                                                ? "bg-[#2A9D8F] border-[#2A9D8F] text-white"
-                                                : "bg-white border-[rgba(38,70,83,0.2)] text-[#6B675F] hover:border-[#2A9D8F]"
+                                                ? "bg-[#525252] border-[#525252] text-white"
+                                                : "bg-white border-[rgba(0,0,0,0.2)] text-[#525252] hover:border-[#525252]"
                                             }`}
                                     >
                                         {v}
@@ -223,13 +223,13 @@ export default function Vacunacion() {
                                 ))}
                             </div>
                             {errores.vacunas && (
-                                <span className="text-red-500 text-xs mt-1 block">{errores.vacunas}</span>
+                                <span className="text-black font-semibold text-xs mt-1 block">{errores.vacunas}</span>
                             )}
                         </div>
 
                         <button
                             type="submit"
-                            className="sm:col-span-2 bg-[#2A9D8F] text-white font-semibold py-3 rounded-lg hover:bg-[#21867a]"
+                            className="sm:col-span-2 bg-[#525252] text-white font-semibold py-3 rounded-lg hover:bg-[#333333]"
                         >
                             Publicar jornada
                         </button>

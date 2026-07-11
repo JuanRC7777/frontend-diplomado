@@ -110,16 +110,16 @@ export default function Adopcion() {
 
   return (
     <div className="p-10">
-      <h1 className="text-3xl font-bold text-[#264653]">Adopción</h1>
+      <h1 className="text-3xl font-bold text-[#171717]">Adopción</h1>
 
       {/* 5. Pestañas */}
-      <div className="flex gap-2 mt-6 border-b border-[rgba(38,70,83,0.15)]">
+      <div className="flex gap-2 mt-6 border-b border-[rgba(0,0,0,0.15)]">
         <button
           onClick={() => setPestana("consulta")}
           className={`px-6 py-3 text-sm font-semibold border-b-2 ${
             pestana === "consulta"
-              ? "border-[#F4A261] text-[#264653]"
-              : "border-transparent text-[#6B675F]"
+              ? "border-black text-[#171717]"
+              : "border-transparent text-[#525252]"
           }`}
         >
           🔍 Consultar
@@ -128,8 +128,8 @@ export default function Adopcion() {
           onClick={() => setPestana("registro")}
           className={`px-6 py-3 text-sm font-semibold border-b-2 ${
             pestana === "registro"
-              ? "border-[#F4A261] text-[#264653]"
-              : "border-transparent text-[#6B675F]"
+              ? "border-black text-[#171717]"
+              : "border-transparent text-[#525252]"
           }`}
         >
           ➕ Publicar animal
@@ -144,10 +144,10 @@ export default function Adopcion() {
             placeholder="Buscar por nombre, raza o ciudad..."
             value={filtro}
             onChange={(e) => setFiltro(e.target.value)}
-            className="w-full sm:w-96 px-4 py-2.5 mt-6 rounded-lg border border-[rgba(38,70,83,0.2)] bg-white focus:outline-none focus:ring-2 focus:ring-[#2A9D8F]"
+            className="w-full sm:w-96 px-4 py-2.5 mt-6 rounded-lg border border-[rgba(0,0,0,0.2)] bg-white focus:outline-none focus:ring-2 focus:ring-[#525252]"
           />
 
-          <p className="text-sm text-[#6B675F] mt-4">
+          <p className="text-sm text-[#525252] mt-4">
             {adopcionesFiltradas.length} animales disponibles
           </p>
 
@@ -158,7 +158,7 @@ export default function Adopcion() {
           </div>
 
           {adopcionesFiltradas.length === 0 && (
-            <div className="text-center py-20 text-[#6B675F]">
+            <div className="text-center py-20 text-[#525252]">
               <p className="text-5xl mb-4">🔍</p>
               <p className="text-lg font-semibold">No se encontraron resultados.</p>
             </div>
@@ -170,11 +170,11 @@ export default function Adopcion() {
       {pestana === "registro" && (
         <>
           {mensajeExito && (
-            <div className="max-w-2xl mt-6 p-4 bg-emerald-50 border border-emerald-200 rounded-lg text-emerald-700 font-semibold">
+            <div className="max-w-2xl mt-6 p-4 bg-neutral-100 border border-neutral-300 rounded-lg text-black font-semibold">
               ✅ {mensajeExito}
             </div>
           )}
-          <form onSubmit={handleSubmit} className="max-w-2xl mt-6 bg-white rounded-2xl shadow-sm border border-[rgba(38,70,83,0.1)] p-8 grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <form onSubmit={handleSubmit} className="max-w-2xl mt-6 bg-white rounded-2xl shadow-sm border border-[rgba(0,0,0,0.1)] p-8 grid grid-cols-1 sm:grid-cols-2 gap-5">
             <FormField label="Nombre del animal" name="nombre" value={form.nombre} onChange={handleChange} error={errores.nombre} placeholder="Ej: Mango" />
             <FormField
               label="Especie"
@@ -231,7 +231,7 @@ export default function Adopcion() {
 
             <button
               type="submit"
-              className="sm:col-span-2 bg-[#264653] text-white font-semibold py-3 rounded-lg hover:bg-[#1b3540]"
+              className="sm:col-span-2 bg-[#171717] text-white font-semibold py-3 rounded-lg hover:bg-[#000000]"
             >
               Publicar en adopción
             </button>

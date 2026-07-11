@@ -96,7 +96,7 @@ export default function Auth() {
   return (
     <div className="p-10 flex justify-center">
       <div className="w-full max-w-md">
-        <div className="flex rounded-xl overflow-hidden border border-[rgba(38,70,83,0.15)] mb-8">
+        <div className="flex rounded-xl overflow-hidden border border-[rgba(0,0,0,0.15)] mb-8">
           {(["login", "registro"] as const).map((m) => (
             <button
               key={m}
@@ -107,7 +107,7 @@ export default function Auth() {
                 setMensajeExito("");
               }}
               className={`flex-1 py-3 text-sm font-semibold transition-colors duration-150 ${
-                modo === m ? "bg-[#264653] text-white" : "bg-white text-[#6B675F] hover:bg-[#F0EDE4]"
+                modo === m ? "bg-[#171717] text-white" : "bg-white text-[#525252] hover:bg-[#F0F0F0]"
               }`}
             >
               {m === "login" ? "Iniciar sesión" : "Crear cuenta"}
@@ -116,7 +116,7 @@ export default function Auth() {
         </div>
 
         {mensajeExito && (
-          <div className="mb-4 p-3 bg-emerald-50 border border-emerald-200 rounded-lg text-emerald-700 text-sm font-semibold text-center">
+          <div className="mb-4 p-3 bg-neutral-100 border border-neutral-300 rounded-lg text-black text-sm font-semibold text-center">
             ✅ {mensajeExito}
           </div>
         )}
@@ -124,9 +124,9 @@ export default function Auth() {
         {modo === "login" ? (
           <form
             onSubmit={handleSubmitLogin}
-            className="bg-white rounded-2xl shadow-sm border border-[rgba(38,70,83,0.1)] p-8 flex flex-col gap-5"
+            className="bg-white rounded-2xl shadow-sm border border-[rgba(0,0,0,0.1)] p-8 flex flex-col gap-5"
           >
-            <h1 className="text-2xl font-bold text-[#264653]">Bienvenido de vuelta</h1>
+            <h1 className="text-2xl font-bold text-[#171717]">Bienvenido de vuelta</h1>
 
             <FormField
               label="Correo electrónico"
@@ -151,9 +151,9 @@ export default function Auth() {
               Iniciar sesión
             </Button>
 
-            <p className="text-sm text-center text-[#6B675F]">
+            <p className="text-sm text-center text-[#525252]">
               ¿No tienes cuenta?{" "}
-              <button type="button" className="text-[#2A9D8F] font-semibold hover:underline" onClick={() => setModo("registro")}>
+              <button type="button" className="text-[#525252] font-semibold hover:underline" onClick={() => setModo("registro")}>
                 Regístrate gratis
               </button>
             </p>
@@ -161,9 +161,9 @@ export default function Auth() {
         ) : (
           <form
             onSubmit={handleSubmitRegistro}
-            className="bg-white rounded-2xl shadow-sm border border-[rgba(38,70,83,0.1)] p-8 flex flex-col gap-5"
+            className="bg-white rounded-2xl shadow-sm border border-[rgba(0,0,0,0.1)] p-8 flex flex-col gap-5"
           >
-            <h1 className="text-2xl font-bold text-[#264653]">Crear cuenta</h1>
+            <h1 className="text-2xl font-bold text-[#171717]">Crear cuenta</h1>
 
             <FormField label="Nombre completo" name="nombre" value={regForm.nombre} onChange={handleRegChange} error={erroresReg.nombre} placeholder="Ej: María García" />
             <FormField label="Correo electrónico" name="email" type="email" value={regForm.email} onChange={handleRegChange} error={erroresReg.email} placeholder="tu@correo.com" />
@@ -175,9 +175,9 @@ export default function Auth() {
               Crear cuenta
             </Button>
 
-            <p className="text-sm text-center text-[#6B675F]">
+            <p className="text-sm text-center text-[#525252]">
               ¿Ya tienes cuenta?{" "}
-              <button type="button" className="text-[#2A9D8F] font-semibold hover:underline" onClick={() => setModo("login")}>
+              <button type="button" className="text-[#525252] font-semibold hover:underline" onClick={() => setModo("login")}>
                 Iniciar sesión
               </button>
             </p>

@@ -12,13 +12,13 @@ interface FormFieldProps {
 }
 
 export default function FormField({ label, name, value, onChange, error, type = "text", placeholder, options }: FormFieldProps) {
-  const estilo = `w-full px-4 py-2.5 rounded-lg border bg-white focus:outline-none focus:ring-2 focus:ring-[#2A9D8F] ${
-    error ? "border-red-400" : "border-[rgba(38,70,83,0.2)]"
+  const estilo = `w-full px-4 py-2.5 rounded-lg border bg-white focus:outline-none focus:ring-2 focus:ring-[#525252] ${
+    error ? "border-black" : "border-[rgba(0,0,0,0.2)]"
   }`;
 
   return (
     <div>
-      <label className="block text-sm font-semibold text-[#264653] mb-1">{label}</label>
+      <label className="block text-sm font-semibold text-[#171717] mb-1">{label}</label>
 
       {options ? (
         <select name={name} value={value} onChange={onChange} className={estilo}>
@@ -31,7 +31,7 @@ export default function FormField({ label, name, value, onChange, error, type = 
         <input name={name} type={type} value={value} onChange={onChange} placeholder={placeholder} className={estilo} />
       )}
 
-      {error && <span className="text-red-500 text-xs mt-1 block">{error}</span>}
+      {error && <span className="text-black font-semibold text-xs mt-1 block">{error}</span>}
     </div>
   );
 }

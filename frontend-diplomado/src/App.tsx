@@ -16,7 +16,7 @@ export default function App() {
       <AdopcionesProvider>
         <JornadasProvider>
           <BrowserRouter>
-            <div className="flex flex-col min-h-screen bg-[#FAF7F0]">
+            <div className="flex flex-col min-h-screen bg-[#F5F5F5]">
               <Navbar />
               <main className="flex-1">
                 <Routes>
