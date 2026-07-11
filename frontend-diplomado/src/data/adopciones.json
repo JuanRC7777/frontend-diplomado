@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1,
+    "nombre": "Firulais",
+    "especie": "Perro",
+    "raza": "Criollo",
+    "edad": 3,
+    "unidadEdad": "años",
+    "tamano": "Mediano",
+    "sexo": "Macho",
+    "estadoSalud": "Excelente",
+    "vacunado": true,
+    "esterilizado": false,
+    "descripcion": "Jugueton y bueno con niños.",
+    "foto": "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400",
+    "ciudad": "Bogotá",
+    "contacto": "correo@ejemplo.com",
+    "telefono": "300 123 4567",
+    "fecha_publicacion": "2026-07-01"
+  }
+]
