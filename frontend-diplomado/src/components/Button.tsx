@@ -10,9 +10,14 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const VARIANTES: Record<Variant, string> = {
-  primary: "bg-[#171717] text-white hover:bg-[#000000]",
-  secondary: "bg-[#525252] text-white hover:bg-[#333333]",
-  outline: "border-2 border-[#525252] text-[#525252] hover:bg-[#525252] hover:text-white",
+   primary:
+    "bg-[#334155] text-white hover:bg-[#1E293B]",
+
+  secondary:
+    "bg-[#64748B] text-white hover:bg-[#475569]",
+
+  outline:
+    "border-2 border-[#64748B] text-[#334155] hover:bg-[#334155] hover:text-white",
 };
 
 const TAMANOS: Record<Size, string> = {
@@ -31,7 +36,7 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
-      className={`rounded-lg font-semibold transition-colors duration-150 ${VARIANTES[variant]} ${TAMANOS[size]} ${
+      className={`rounded-xlfont-semibold transition-colors duration-150 ${VARIANTES[variant]} ${TAMANOS[size]} ${
         fullWidth ? "w-full" : ""
       } ${className}`}
       {...props}
