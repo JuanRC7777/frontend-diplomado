@@ -1,0 +1,6 @@
+# Secretos: nunca deben quedar versionados
+.env
+.env.*
+!.env.example
+
+.DS_Store

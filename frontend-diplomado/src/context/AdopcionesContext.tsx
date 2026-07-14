@@ -1,22 +1,13 @@
-import { createContext, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import type { Animal } from "../types";
 import adopcionesIniciales from "../data/adopciones.json";
-
-interface AdopcionesContextType {
-  adopciones: Animal[];
-  agregarAdopcion: (animal: Animal) => void;
-}
-
-export const AdopcionesContext = createContext<AdopcionesContextType>({
-  adopciones: [],
-  agregarAdopcion: () => {},
-});
+import { AdopcionesContext } from "./adopciones-context";
 
 export function AdopcionesProvider({ children }: { children: ReactNode }) {
   const [adopciones, setAdopciones] = useState<Animal[]>(adopcionesIniciales);
 
   function agregarAdopcion(animal: Animal) {
-        setAdopciones((prev) => [animal, ...prev]);
+    setAdopciones((prev) => [animal, ...prev]);
   }
 
   return (

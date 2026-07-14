@@ -31,7 +31,11 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
+<<<<<<< Updated upstream
       className={`rounded-lg font-semibold transition-colors duration-150 ${VARIANTES[variant]} ${TAMANOS[size]} ${
+=======
+      className={`rounded-xl font-semibold transition-colors duration-150 ${VARIANTES[variant]} ${TAMANOS[size]} ${
+>>>>>>> Stashed changes
         fullWidth ? "w-full" : ""
       } ${className}`}
       {...props}

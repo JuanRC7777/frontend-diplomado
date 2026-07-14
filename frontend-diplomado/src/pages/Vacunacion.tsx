@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { JornadasContext } from "../context/JornadasContext";
+import { JornadasContext } from "../context/jornadas-context";
 import CardJornada from "../components/CardJornada";
 import FormField from "../components/FormField";
 import type { Jornada } from "../types";

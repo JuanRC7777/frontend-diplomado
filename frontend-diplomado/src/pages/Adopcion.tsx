@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
-import { AdopcionesContext } from "../context/AdopcionesContext";
+import { AdopcionesContext } from "../context/adopciones-context";
 import Card from "../components/Card";
 import FormField from "../components/FormField";
 import type { Animal } from "../types";
 
-/* 1. Molde vacío del formulari */
+/* 1. Molde vacío del formulario */
 const FORM_INICIAL = {
   nombre: "",
   especie: "",
@@ -35,7 +35,7 @@ export default function Adopcion() {
     setErrores((prev) => ({ ...prev, [e.target.name]: "" }));
   };
 
-  // Funcion de validacion 
+  // Función de validación
     function validar() {
     const errs: Record<string, string> = {};
     if (!form.nombre.trim()) errs.nombre = "El nombre es requerido.";
@@ -58,7 +58,7 @@ export default function Adopcion() {
     return errs;
   }
 
-  //Funcion de handleSubmit
+  // Función de handleSubmit
     function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 

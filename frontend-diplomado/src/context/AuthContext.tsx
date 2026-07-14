@@ -1,25 +1,5 @@
-import { createContext, useCallback, useState, type ReactNode } from "react";
-
-interface Usuario {
-  nombre: string;
-  email: string;
-  telefono?: string;
-  password: string;
-}
-
-interface AuthContextType {
-  user: Omit<Usuario, "password"> | null;
-  login: (email: string, password: string) => boolean;
-  logout: () => void;
-  register: (datos: Usuario) => boolean;
-}
-
-export const AuthContext = createContext<AuthContextType>({
-  user: null,
-  login: () => false,
-  logout: () => {},
-  register: () => false,
-});
+import { useCallback, useState, type ReactNode } from "react";
+import { AuthContext, type Usuario } from "./auth-context";
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<Omit<Usuario, "password"> | null>(null);
