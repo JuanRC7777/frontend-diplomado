@@ -1,7 +1,11 @@
 -- ============================================================
 -- 01_schema.sql
--- Ejecutar como el usuario de la app (o root la primera vez):
---   mysql -u pawcare_app -p pawcare < database/01_schema.sql
+-- Ejecutar como root (crear tablas es DDL; pawcare_app solo tiene
+-- privilegios DML -- SELECT/INSERT/UPDATE/DELETE -- a propósito):
+--   mysql -u root -p pawcare < database/01_schema.sql
+--
+-- Es seguro volver a correrlo: todas las tablas usan
+-- IF NOT EXISTS y el catálogo de vacunas usa INSERT IGNORE.
 -- ============================================================
 
 USE pawcare;
@@ -12,7 +16,7 @@ USE pawcare;
 -- generado en el backend). CHAR(60) es el tamaño exacto de un
 -- hash bcrypt.
 -- ------------------------------------------------------------
-CREATE TABLE usuarios (
+CREATE TABLE IF NOT EXISTS usuarios (
   id              BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   nombre          VARCHAR(120)  NOT NULL,
   email           VARCHAR(190)  NOT NULL,
@@ -32,7 +36,7 @@ CREATE TABLE usuarios (
 -- base de datos se filtra, los tokens no quedan reutilizables.
 -- Permite revocación (logout) y expiración server-side.
 -- ------------------------------------------------------------
-CREATE TABLE refresh_tokens (
+CREATE TABLE IF NOT EXISTS refresh_tokens (
   id            BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   usuario_id    BIGINT UNSIGNED NOT NULL,
   token_hash    CHAR(64)        NOT NULL,
@@ -52,7 +56,7 @@ CREATE TABLE refresh_tokens (
 -- (rate limiting) a nivel de aplicación: contar intentos
 -- fallidos por email/IP en una ventana de tiempo.
 -- ------------------------------------------------------------
-CREATE TABLE login_attempts (
+CREATE TABLE IF NOT EXISTS login_attempts (
   id          BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   email       VARCHAR(190) NOT NULL,
   ip_address  VARCHAR(45)  NOT NULL,
@@ -65,20 +69,20 @@ CREATE TABLE login_attempts (
 -- ------------------------------------------------------------
 -- CATALOGO DE VACUNAS (evita texto libre repetido en jornadas)
 -- ------------------------------------------------------------
-CREATE TABLE vacunas (
+CREATE TABLE IF NOT EXISTS vacunas (
   id      SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   nombre  VARCHAR(60) NOT NULL,
   UNIQUE KEY uq_vacuna_nombre (nombre)
 ) ENGINE=InnoDB;
 
-INSERT INTO vacunas (nombre) VALUES
+INSERT IGNORE INTO vacunas (nombre) VALUES
   ('Antirrábica'), ('Parvovirus'), ('Moquillo'),
   ('Triple Felina'), ('Leucemia Felina'), ('Bordetella'), ('Rabia');
 
 -- ------------------------------------------------------------
 -- ANIMALES EN ADOPCION
 -- ------------------------------------------------------------
-CREATE TABLE animales (
+CREATE TABLE IF NOT EXISTS animales (
   id                BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   usuario_id        BIGINT UNSIGNED NULL,
   nombre            VARCHAR(80)   NOT NULL,
@@ -107,7 +111,7 @@ CREATE TABLE animales (
 -- ------------------------------------------------------------
 -- JORNADAS DE VACUNACION
 -- ------------------------------------------------------------
-CREATE TABLE jornadas (
+CREATE TABLE IF NOT EXISTS jornadas (
   id                BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   usuario_id        BIGINT UNSIGNED NULL,
   titulo            VARCHAR(150)  NOT NULL,
@@ -131,7 +135,7 @@ CREATE TABLE jornadas (
 -- ------------------------------------------------------------
 -- PIVOTE JORNADA <-> VACUNAS (relación N:M)
 -- ------------------------------------------------------------
-CREATE TABLE jornada_vacunas (
+CREATE TABLE IF NOT EXISTS jornada_vacunas (
   jornada_id  BIGINT UNSIGNED NOT NULL,
   vacuna_id   SMALLINT UNSIGNED NOT NULL,
   PRIMARY KEY (jornada_id, vacuna_id),

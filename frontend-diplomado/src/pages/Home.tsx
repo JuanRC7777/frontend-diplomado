@@ -9,11 +9,7 @@ export default function Home() {
         <span className="text-[#525252] text-xs font-bold uppercase tracking-widest">
           Bienestar animal
         </span>
-<<<<<<< Updated upstream
         <h1 className="text-4xl lg:text-5xl font-bold text-[#171717] mt-3 leading-tight">
-=======
-        <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 mt-3 leading-tight">
->>>>>>> Stashed changes
           Encuentra tu compañero y cuida a los tuyos 🐾
         </h1>
         <p className="text-[#525252] mt-4 text-lg">
@@ -29,11 +25,7 @@ export default function Home() {
           </Link>
           <Link
             to="/vacunacion"
-<<<<<<< Updated upstream
             className="px-6 py-3 rounded-lg border-2 border-[#525252] text-[#525252] font-semibold hover:bg-[#525252] hover:text-white"
-=======
-            className="px-6 py-3 rounded-lg border-2 border-[#64748B] text-[#64748B] font-semibold hover:bg-[#525252] hover:text-white"
->>>>>>> Stashed changes
           >
             Jornadas de vacunación
           </Link>

@@ -1,37 +1,71 @@
-import { useCallback, useState, type ReactNode } from "react";
-import { AuthContext, type Usuario } from "./auth-context";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { apiFetch, ApiError } from "../lib/api";
+import { AuthContext, type AuthResult, type PublicUser, type RegistroDatos } from "./auth-context";
+
+interface SesionResponse {
+  accessToken: string;
+  user: PublicUser;
+}
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<Omit<Usuario, "password"> | null>(null);
-  const [usuarios, setUsuarios] = useState<Usuario[]>([
-    { nombre: "Usuario Demo", email: "demo@diplomado.co", telefono: "300 000 0000", password: "demo123" },
-  ]);
+  const [user, setUser] = useState<PublicUser | null>(null);
+  const [accessToken, setAccessToken] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const login = useCallback(
-    (email: string, password: string): boolean => {
-      const encontrado = usuarios.find((u) => u.email === email && u.password === password);
-      if (!encontrado) return false;
-      setUser({ nombre: encontrado.nombre, email: encontrado.email, telefono: encontrado.telefono });
-      return true;
-    },
-    [usuarios]
-  );
+  // Al cargar la app, intenta restaurar la sesión usando el refresh token
+  // (cookie httpOnly) para que un F5 no cierre la sesión del usuario.
+  useEffect(() => {
+    apiFetch<SesionResponse>("/auth/refresh", { method: "POST" })
+      .then((data) => {
+        setAccessToken(data.accessToken);
+        setUser(data.user);
+      })
+      .catch(() => {
+        setAccessToken(null);
+        setUser(null);
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
-  const logout = useCallback(() => setUser(null), []);
+  const login = useCallback(async (email: string, password: string): Promise<AuthResult> => {
+    try {
+      const data = await apiFetch<SesionResponse>("/auth/login", {
+        method: "POST",
+        body: { email, password },
+      });
+      setAccessToken(data.accessToken);
+      setUser(data.user);
+      return { ok: true };
+    } catch (err) {
+      return { ok: false, error: err instanceof ApiError ? err.message : "No se pudo iniciar sesión." };
+    }
+  }, []);
 
-  const register = useCallback(
-    (datos: Usuario): boolean => {
-      const existe = usuarios.some((u) => u.email === datos.email);
-      if (existe) return false;
-      setUsuarios((prev) => [...prev, datos]);
-      setUser({ nombre: datos.nombre, email: datos.email, telefono: datos.telefono });
-      return true;
-    },
-    [usuarios]
-  );
+  const register = useCallback(async (datos: RegistroDatos): Promise<AuthResult> => {
+    try {
+      const data = await apiFetch<SesionResponse>("/auth/register", {
+        method: "POST",
+        body: datos,
+      });
+      setAccessToken(data.accessToken);
+      setUser(data.user);
+      return { ok: true };
+    } catch (err) {
+      return { ok: false, error: err instanceof ApiError ? err.message : "No se pudo crear la cuenta." };
+    }
+  }, []);
+
+  const logout = useCallback(async () => {
+    try {
+      await apiFetch("/auth/logout", { method: "POST" });
+    } finally {
+      setAccessToken(null);
+      setUser(null);
+    }
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, register }}>
+    <AuthContext.Provider value={{ user, accessToken, loading, login, logout, register }}>
       {children}
     </AuthContext.Provider>
   );

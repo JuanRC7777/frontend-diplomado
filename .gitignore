@@ -3,4 +3,7 @@
 .env.*
 !.env.example
 
+# Backend (frontend-diplomado/ ya tiene su propio .gitignore)
+backend/node_modules
+
 .DS_Store

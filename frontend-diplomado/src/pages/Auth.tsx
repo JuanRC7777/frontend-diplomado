@@ -56,40 +56,40 @@ export default function Auth() {
     return errs;
   }
 
-  function handleSubmitRegistro(e: React.FormEvent) {
+  async function handleSubmitRegistro(e: React.FormEvent) {
     e.preventDefault();
     const errs = validarRegistro();
     if (Object.keys(errs).length > 0) {
       setErroresReg(errs);
       return;
     }
-    const ok = register({
+    const resultado = await register({
       nombre: regForm.nombre,
       email: regForm.email,
       telefono: regForm.telefono,
       password: regForm.password,
     });
-    if (ok) {
+    if (resultado.ok) {
       setMensajeExito("¡Cuenta creada! Redirigiendo...");
       setTimeout(() => navigate("/"), 1500);
     } else {
-      setErroresReg({ email: "Este correo ya está registrado." });
+      setErroresReg({ email: resultado.error ?? "No se pudo crear la cuenta." });
     }
   }
 
-  function handleSubmitLogin(e: React.FormEvent) {
+  async function handleSubmitLogin(e: React.FormEvent) {
     e.preventDefault();
     const errs = validarLogin();
     if (Object.keys(errs).length > 0) {
       setErroresLogin(errs);
       return;
     }
-    const ok = login(loginForm.email, loginForm.password);
-    if (ok) {
+    const resultado = await login(loginForm.email, loginForm.password);
+    if (resultado.ok) {
       setMensajeExito("¡Bienvenido de vuelta! Redirigiendo...");
       setTimeout(() => navigate("/"), 1500);
     } else {
-      setErroresLogin({ email: "Correo o contraseña incorrectos." });
+      setErroresLogin({ email: resultado.error ?? "Correo o contraseña incorrectos." });
     }
   }
 

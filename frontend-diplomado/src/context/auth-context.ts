@@ -1,6 +1,17 @@
 import { createContext } from "react";
 
-export interface Usuario {
+export interface PublicUser {
+  nombre: string;
+  email: string;
+  telefono?: string;
+}
+
+export interface AuthResult {
+  ok: boolean;
+  error?: string;
+}
+
+export interface RegistroDatos {
   nombre: string;
   email: string;
   telefono?: string;
@@ -8,15 +19,19 @@ export interface Usuario {
 }
 
 export interface AuthContextType {
-  user: Omit<Usuario, "password"> | null;
-  login: (email: string, password: string) => boolean;
-  logout: () => void;
-  register: (datos: Usuario) => boolean;
+  user: PublicUser | null;
+  accessToken: string | null;
+  loading: boolean;
+  login: (email: string, password: string) => Promise<AuthResult>;
+  logout: () => Promise<void>;
+  register: (datos: RegistroDatos) => Promise<AuthResult>;
 }
 
 export const AuthContext = createContext<AuthContextType>({
   user: null,
-  login: () => false,
-  logout: () => {},
-  register: () => false,
+  accessToken: null,
+  loading: true,
+  login: async () => ({ ok: false, error: "No inicializado." }),
+  logout: async () => {},
+  register: async () => ({ ok: false, error: "No inicializado." }),
 });

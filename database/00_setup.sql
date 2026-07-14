@@ -11,15 +11,21 @@ CREATE DATABASE IF NOT EXISTS pawcare
   CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;
 
--- Cambia esta contraseña por una fuerte y única (no la reutilices).
--- En producción, este valor debe salir de un secreto (env var / vault),
--- nunca quedar commiteado en el repo.
+-- IMPORTANTE: reemplaza CAMBIA_ESTA_CONTRASENA por una fuerte y única
+-- SOLO al pegar el comando en tu terminal para ejecutarlo -- nunca guardes
+-- la contraseña real en este archivo ni la commitees. El valor real vive
+-- únicamente en backend/.env (ignorado por git).
+--
+-- CREATE USER IF NOT EXISTS es idempotente: si el usuario ya existe, esta
+-- sentencia NO actualiza su contraseña. Por eso el ALTER USER de abajo
+-- fija la contraseña explícitamente sin importar si el usuario ya existía.
 CREATE USER IF NOT EXISTS 'pawcare_app'@'localhost'
-  IDENTIFIED BY 'CAMBIA_ESTA_CONTRASENA_2026!'
   REQUIRE SSL
   PASSWORD EXPIRE INTERVAL 90 DAY
   FAILED_LOGIN_ATTEMPTS 5
   PASSWORD_LOCK_TIME 1;
+
+ALTER USER 'pawcare_app'@'localhost' IDENTIFIED BY 'CAMBIA_ESTA_CONTRASENA';
 
 -- Solo DML sobre la base de la app. Sin DROP, sin GRANT OPTION,
 -- sin acceso a otras bases ni privilegios de administración.
