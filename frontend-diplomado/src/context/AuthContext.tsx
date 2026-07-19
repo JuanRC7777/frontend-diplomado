@@ -12,8 +12,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Al cargar la app, intenta restaurar la sesión usando el refresh token
-  // (cookie httpOnly) para que un F5 no cierre la sesión del usuario.
+  //para que un F5 no cierre la sesión del usuario (usa el refresh token de la cookie)
   useEffect(() => {
     apiFetch<SesionResponse>("/auth/refresh", { method: "POST" })
       .then((data) => {

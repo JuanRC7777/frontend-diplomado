@@ -1,5 +1,14 @@
 const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:4000/api";
 
+export const SERVER_URL = API_URL.replace(/\/api\/?$/, "");
+
+// arma de la url completa de una foto
+export function resolverFoto(fotoUrl?: string | null): string | null {
+  if (!fotoUrl) return null;
+  if (fotoUrl.startsWith("http")) return fotoUrl;
+  return `${SERVER_URL}${fotoUrl}`;
+}
+
 export class ApiError extends Error {
   status: number;
   constructor(status: number, message: string) {
@@ -15,16 +24,16 @@ interface RequestOptions {
 }
 
 export async function apiFetch<T>(path: string, options: RequestOptions = {}): Promise<T> {
-  const res = await fetch(`${API_URL}${path}`, {
+  const esFormData = options.body instanceof FormData;
+
+  const res= await fetch(`${API_URL}${path}`, {
     method: options.method ?? "GET",
     headers: {
-      "Content-Type": "application/json",
+      ...(esFormData ? {} : { "Content-Type": "application/json" }),
       ...(options.accessToken ? { Authorization: `Bearer ${options.accessToken}` } : {}),
     },
-    // Necesario para que el navegador envíe/reciba la cookie httpOnly
-    // del refresh token en un origen distinto (localhost:5173 -> :4000).
     credentials: "include",
-    body: options.body ? JSON.stringify(options.body) : undefined,
+    body: esFormData ? (options.body as FormData) : options.body ? JSON.stringify(options.body) : undefined,
   });
 
   const data = res.status === 204 ? null : await res.json().catch(() => null);
@@ -32,6 +41,5 @@ export async function apiFetch<T>(path: string, options: RequestOptions = {}): P
   if (!res.ok) {
     throw new ApiError(res.status, data?.error ?? "Error de red inesperado.");
   }
-
   return data as T;
 }

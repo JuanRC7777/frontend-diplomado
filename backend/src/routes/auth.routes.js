@@ -6,10 +6,14 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 
 const router = Router();
 
+// registro
 router.post("/register", authLimiter, asyncHandler(register));
+//login
 router.post("/login", authLimiter, asyncHandler(login));
+
 router.post("/refresh", asyncHandler(refresh));
 router.post("/logout", asyncHandler(logout));
+// ver perfil
 router.get("/me", requireAuth, asyncHandler(me));
 
 export default router;

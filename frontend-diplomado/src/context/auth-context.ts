@@ -1,6 +1,8 @@
 import { createContext } from "react";
 
+// datos publicos del usuario
 export interface PublicUser {
+  id: number;
   nombre: string;
   email: string;
   telefono?: string;
