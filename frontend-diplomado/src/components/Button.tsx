@@ -9,6 +9,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
 }
 
+// estilos segun el boton
 const VARIANTES: Record<Variant, string> = {
    primary:
     "bg-[#334155] text-white hover:bg-[#1E293B]",

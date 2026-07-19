@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../context/auth-context";
 import Button from "./Button";
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>
@@ -8,6 +8,7 @@ const linkClass = ({ isActive }: { isActive: boolean }) =>
     isActive ? "text-white underline underline-offset-4" : "text-white/70 hover:text-white"
   }`;
 
+// links del menu
 const LINKS = [
   { to: "/", label: "Inicio", end: true },
   { to: "/adopcion", label: "Adopción", end: false },

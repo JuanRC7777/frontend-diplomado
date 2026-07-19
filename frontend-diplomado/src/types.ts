@@ -1,36 +1,44 @@
+// tipo de animal
 export interface Animal {
   id: number;
+  usuario_id: number | null;
   nombre: string;
   especie: string;
   raza: string;
   edad: number;
-  unidadEdad: string;
-  tamano: string;
-  sexo: string;
-  estadoSalud: string;
+  unidad_edad: "meses" | "años";
+  tamano: "Pequeño" | "Mediano" | "Grande";
+  sexo: "Macho" | "Hembra";
+  estado_salud: string;
   vacunado: boolean;
   esterilizado: boolean;
-  descripcion: string;
-  foto: string;
+  descripcion: string | null;
+  foto_url: string | null;
   ciudad: string;
-  contacto: string;
-  telefono: string;
+  contacto_email: string;
+  contacto_telefono: string;
+  carnet?: string | null;
   fecha_publicacion: string;
-  carnet?: string;
-  publicadoPor?: string;
 }
+
+export interface Vacuna {
+  id: number;
+  nombre: string;
+}
+
 export interface Jornada {
   id: number;
+  usuario_id: number | null;
   titulo: string;
   lugar: string;
   ciudad: string;
   fecha: string;
-  hora: string;
-  horaFin: string;
-  vacunas: string[];
+  hora_inicio: string;
+  hora_fin: string;
   organizador: string;
-  contacto: string;
+  contacto_email: string;
   cupos: number;
-  descripcion: string;
+  descripcion: string | null;
   fecha_publicacion: string;
+  Vacunas: Vacuna[]; // las vacunas que incluye
 }

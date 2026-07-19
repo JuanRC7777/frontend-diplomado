@@ -11,6 +11,7 @@ interface FormFieldProps {
   options?: { value: string; label: string }[];
 }
 
+// si tiene error se pone el borde negro
 export default function FormField({ label, name, value, onChange, error, type = "text", placeholder, options }: FormFieldProps) {
   const estilo = `w-full px-4 py-2.5 rounded-lg border bg-white focus:outline-none focus:ring-2 focus:ring-[#525252] ${
     error ? "border-black" : "border-[rgba(0,0,0,0.2)]"
