@@ -1,75 +1,63 @@
-# React + TypeScript + Vite
+# PawCare - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este es el frontend del proyecto PawCare (adopción de mascotas y jornadas de vacunación), hecho con React + TypeScript +Vite
 
-Currently, two official plugins are available:
+## Primeramente
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Este proyecto **solo es la parte visual**. Para que funcione de verdad (poder registrarte, ver los animales, crear publicaciones, etc.) necesitas tener corriendo también el backend, que está en otro repositorio aparte: `backend-diplomado`. Sin el backend prendido, la página carga pero no vas a poder hacer login ni ver datos reales.
 
-## React Compiler
+## Instalación
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Variables de entorno
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Copia `.env.example` a `.env`:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+cp .env.example .env
+```
+
+Y revisa que tenga esto (por defecto ya debería estar bien si el backend corre en el puerto 4000, que es lo normal):
 
 ```
+VITE_API_URL=http://localhost:4000/api
+```
+
+Esa variable es la URL a la que el frontend le hace todas las peticiones (login, listar animales, crear jornadas, subir fotos, etc). Si cambias el puerto del backend, tienes que cambiar esto también.
+
+## Correrlo
+
+```bash
+npm run dev
+```
+
+Se abre normalmente en `http://localhost:5173`.
+
+## Ojo con esto (para que no te salgan errores raros)
+
+- El backend tiene que estar corriendo ANTES de usar el frontend (si no, te va a salir error de red al intentar iniciar sesión o cargar el listado).
+- El backend tiene una variable llamada `CORS_ORIGIN` en su `.env`, que por defecto es `http://localhost:5173`. Si corres el frontend en otro puerto o dominio distinto, el backend va a bloquear las peticiones (error de CORS en la consola del navegador) hasta que ajustes esa variable allá.
+- Las fotos que subes (al crear un animal) se guardan en el backend, no aquí — por eso también necesitas el backend andando para que las imágenes se vean.
+
+## Estructura (por si te pierdes)
+
+```
+src/
+  pages/        -> las pantallas (Home, Auth, Adopcion, Vacunacion, etc)
+  components/   -> cosas reutilizables (Navbar, Card, Button, formularios...)
+  context/      -> el estado global (sesión del usuario, listado de animales/jornadas)
+  lib/          -> las funciones que hablan con la API del backend
+  types.ts      -> los tipos de TypeScript (Animal, Jornada, Vacuna)
+```
+
+## Páginas que tiene
+
+- `/` - inicio
+- `/auth` - login y registro
+- `/acerca` - acerca de
+- `/adopcion` - listado de animales, y `/adopcion/:id` para ver el detalle
+- `/adopcion/crear` y `/adopcion/:id/editar` - publicar/editar (necesita estar logueado)
+- `/vacunacion` - igual pero para jornadas de vacunación
