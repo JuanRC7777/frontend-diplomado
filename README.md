@@ -6,6 +6,21 @@ Este es el frontend del proyecto PawCare (adopción de mascotas y jornadas de va
 
 Este proyecto **solo es la parte visual**. Para que funcione de verdad (poder registrarte, ver los animales, crear publicaciones, etc.) necesitas tener corriendo también el backend, que está en otro repositorio aparte: `backend-diplomado`. Sin el backend prendido, la página carga pero no vas a poder hacer login ni ver datos reales.
 
+## Requisitos
+
+- Node.js LTS (v20 o superior)
+- npm (incluido con Node.js)
+- Git
+
+Editor recomendado: Visual Studio Code, con las extensiones ESLint, Prettier y ES7+ React/Redux/React-Native snippets.
+
+Verificar instalación:
+
+```bash
+node -v
+npm -v
+```
+
 ## Instalación
 
 ```bash
