@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth-context";
 import Button from "./Button";
@@ -21,8 +21,13 @@ export default function Navbar() {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const links = useMemo(
+    () => (user?.rol === "admin" ? [...LINKS, { to: "/admin", label: "Admin", end: false }] : LINKS),
+    [user]
+  );
+
   return (
-    <nav className="bg-[#334155] sticky top-0 z-10 shadow-lg">
+    <nav className="bg-[#171717] sticky top-0 z-10 shadow-lg">
       <div className="max-w-6xl mx-auto px-4">
         <div className="h-16 flex items-center justify-between">
           <NavLink to="/" className="text-white font-bold text-lg">
@@ -30,7 +35,7 @@ export default function Navbar() {
           </NavLink>
 
           <div className="hidden md:flex gap-1">
-            {LINKS.map((l) => (
+            {links.map((l) => (
               <NavLink key={l.to} to={l.to} className={linkClass} end={l.end}>
                 {l.label}
               </NavLink>
@@ -70,15 +75,15 @@ export default function Navbar() {
         </div>
 
         {menuAbierto && (
-          <div className="md:hidden pb-4 flex flex-col gap-2 border-t border-slate-600 pt-4">
-            {LINKS.map((l) => (
+          <div className="md:hidden pb-4 flex flex-col gap-2 border-t border-white/10 pt-4">
+            {links.map((l) => (
               <NavLink key={l.to} to={l.to} end={l.end} className={linkClass} onClick={() => setMenuAbierto(false)}>
                 {l.label}
               </NavLink>
             ))}
             {user ? (
               <div className="flex flex-col gap-2 mt-2 px-3">
-                <span className="text-sm text-slate-200">Hola, {user.nombre}</span>
+                <span className="text-sm text-white/70">Hola, {user.nombre}</span>
                 <Button variant="outline" size="sm" onClick={() => { logout(); setMenuAbierto(false); }}>
                   Cerrar sesión
                 </Button>

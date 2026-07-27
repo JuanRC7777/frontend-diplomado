@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import type { Animal } from "../types";
 import Button from "./Button";
 import { resolverFoto } from "../lib/api";
@@ -10,6 +10,8 @@ interface CardProps {
 }
 
 export default function Card({ animal, onEditar, onEliminar }: CardProps) {
+  const navigate = useNavigate();
+
   return (
     <article className="bg-white rounded-2xl shadow-sm border border-[rgba(0,0,0,0.1)] overflow-hidden hover:shadow-lg transition-shadow duration-200">
       <Link to={`/adopcion/${animal.id}`}>
@@ -56,7 +58,7 @@ export default function Card({ animal, onEditar, onEliminar }: CardProps) {
           size="sm"
           fullWidth
           className="mt-4"
-          onClick={() => window.open(`mailto:${animal.contacto_email}`)}
+          onClick={() => navigate(`/adopcion/${animal.id}`)}
         >
           Quiero adoptarlo
         </Button>

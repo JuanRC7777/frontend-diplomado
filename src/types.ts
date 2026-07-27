@@ -26,6 +26,17 @@ export interface Vacuna {
   nombre: string;
 }
 
+export interface SolicitudAdopcion {
+  id: number;
+  animal_id: number;
+  nombre_solicitante: string;
+  telefono_solicitante: string;
+  email_solicitante: string;
+  mensaje: string | null;
+  fecha_solicitud: string;
+  Animal?: { id: number; nombre: string; foto_url: string | null };
+}
+
 export interface Jornada {
   id: number;
   usuario_id: number | null;

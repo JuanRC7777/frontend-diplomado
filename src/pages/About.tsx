@@ -9,7 +9,7 @@ export default function About() {
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-12">
-        <div className="bg-white rounded-2xl p-6 border border-slate-200shadow-sm">
+        <div className="bg-white rounded-2xl p-6 border border-[rgba(0,0,0,0.1)] shadow-sm">
           <div className="text-3xl mb-3">🐾</div>
           <h2 className="font-bold text-[#171717] text-lg mb-2">Adopción responsable</h2>
           <p className="text-[#525252] text-sm leading-relaxed">
@@ -17,17 +17,17 @@ export default function About() {
             de contacto, para facilitar adopciones informadas.
           </p>
         </div>
-        <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+        <div className="bg-white rounded-2xl p-6 border border-[rgba(0,0,0,0.1)] shadow-sm">
           <div className="text-3xl mb-3">💉</div>
-          <h2 className="font-bold text-slate-900 text-lg mb-2">Jornadas de vacunación</h2>
-          <p className="text-slate-500 text-sm leading-relaxed">
+          <h2 className="font-bold text-[#171717] text-lg mb-2">Jornadas de vacunación</h2>
+          <p className="text-[#525252] text-sm leading-relaxed">
             Jornadas comunitarias y oficiales de vacunación, con lugar, fecha, hora y vacunas
             disponibles.
           </p>
         </div>
       </div>
 
-      <div className="mt-12 bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
+      <div className="mt-12 bg-white rounded-2xl p-8 border border-[rgba(0,0,0,0.1)] shadow-sm">
         <h2 className="font-bold text-[#171717] text-xl mb-6">Tecnologías utilizadas</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {[
@@ -36,7 +36,7 @@ export default function About() {
             { icon: "🛣️", name: "React Router", desc: "Navegación" },
             { icon: "🎨", name: "Tailwind CSS", desc: "Estilos" },
           ].map((tech) => (
-            <div key={tech.name} className="text-center p-4 bg-slate-100 rounded-xl">
+            <div key={tech.name} className="text-center p-4 bg-[#F5F5F5] rounded-xl">
               <div className="text-2xl mb-2">{tech.icon}</div>
               <p className="font-bold text-[#171717] text-sm">{tech.name}</p>
               <p className="text-[#525252] text-xs">{tech.desc}</p>

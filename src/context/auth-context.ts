@@ -6,6 +6,7 @@ export interface PublicUser {
   nombre: string;
   email: string;
   telefono?: string;
+  rol: "usuario" | "admin";
 }
 
 export interface AuthResult {
