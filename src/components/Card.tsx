@@ -56,7 +56,7 @@ export default function Card({ animal, onEditar, onEliminar }: CardProps) {
           size="sm"
           fullWidth
           className="mt-4"
-          onClick={() => window.open(`mailto:${animal.contacto_email}`)}
+          onClick={() => { window.location.href = `mailto:${animal.contacto_email}`; }}
         >
           Quiero adoptarlo
         </Button>

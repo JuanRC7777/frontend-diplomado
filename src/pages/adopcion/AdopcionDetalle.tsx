@@ -76,7 +76,7 @@ export default function AdopcionDetalle() {
           </p>
 
           <div className="flex gap-3 mt-6">
-            <Button variant="primary" onClick={() => window.open(`mailto:${animal.contacto_email}`)}>
+            <Button variant="primary" onClick={() => { window.location.href = `mailto:${animal.contacto_email}`; }}>
               Quiero adoptarlo
             </Button>
             {esDueno && (
