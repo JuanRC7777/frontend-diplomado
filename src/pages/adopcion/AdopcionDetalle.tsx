@@ -8,6 +8,7 @@ import Loader from "../../components/Loader";
 import Alert from "../../components/Alert";
 import Button from "../../components/Button";
 import { resolverFoto } from "../../lib/api";
+import { mailtoSolicitarAdopcion } from "../../lib/contacto";
 
 export default function AdopcionDetalle() {
   const { id } = useParams();
@@ -76,7 +77,7 @@ export default function AdopcionDetalle() {
           </p>
 
           <div className="flex gap-3 mt-6">
-            <Button variant="primary" onClick={() => { window.location.href = `mailto:${animal.contacto_email}`; }}>
+            <Button variant="primary" onClick={() => { window.location.href = mailtoSolicitarAdopcion(animal); }}>
               Quiero adoptarlo
             </Button>
             {esDueno && (

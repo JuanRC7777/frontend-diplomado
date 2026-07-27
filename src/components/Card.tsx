@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import type { Animal } from "../types";
 import Button from "./Button";
 import { resolverFoto } from "../lib/api";
+import { mailtoSolicitarAdopcion } from "../lib/contacto";
 
 interface CardProps {
   animal: Animal;
@@ -56,7 +57,7 @@ export default function Card({ animal, onEditar, onEliminar }: CardProps) {
           size="sm"
           fullWidth
           className="mt-4"
-          onClick={() => { window.location.href = `mailto:${animal.contacto_email}`; }}
+          onClick={() => { window.location.href = mailtoSolicitarAdopcion(animal); }}
         >
           Quiero adoptarlo
         </Button>
