@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth-context";
 import Button from "./Button";
@@ -21,6 +21,11 @@ export default function Navbar() {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const links = useMemo(
+    () => (user?.rol === "admin" ? [...LINKS, { to: "/admin", label: "Admin", end: false }] : LINKS),
+    [user]
+  );
+
   return (
     <nav className="bg-[#334155] sticky top-0 z-10 shadow-lg">
       <div className="max-w-6xl mx-auto px-4">
@@ -30,7 +35,7 @@ export default function Navbar() {
           </NavLink>
 
           <div className="hidden md:flex gap-1">
-            {LINKS.map((l) => (
+            {links.map((l) => (
               <NavLink key={l.to} to={l.to} className={linkClass} end={l.end}>
                 {l.label}
               </NavLink>
@@ -71,7 +76,7 @@ export default function Navbar() {
 
         {menuAbierto && (
           <div className="md:hidden pb-4 flex flex-col gap-2 border-t border-slate-600 pt-4">
-            {LINKS.map((l) => (
+            {links.map((l) => (
               <NavLink key={l.to} to={l.to} end={l.end} className={linkClass} onClick={() => setMenuAbierto(false)}>
                 {l.label}
               </NavLink>

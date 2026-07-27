@@ -13,6 +13,8 @@ import VacunacionEditar from "./pages/vacunacion/VacunacionEditar";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import RutaProtegida from "./components/RutaProtegida";
+import RutaAdmin from "./components/RutaAdmin";
+import Admin from "./pages/Admin";
 import { AdopcionesProvider } from "./context/AdopcionesContext";
 import { JornadasProvider } from "./context/JornadasContext";
 import { AuthProvider } from "./context/AuthContext";
@@ -30,6 +32,14 @@ export default function App() {
                   <Route path="/" element={<Home />} />
                   <Route path="/auth" element={<Auth />} />
                   <Route path="/acerca" element={<About />} />
+                  <Route
+                    path="/admin"
+                    element={
+                      <RutaAdmin>
+                        <Admin />
+                      </RutaAdmin>
+                    }
+                  />
 
                   <Route path="/adopcion" element={<AdopcionListado />} />
                   <Route path="/adopcion/:id" element={<AdopcionDetalle />} />
