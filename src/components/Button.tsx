@@ -37,7 +37,7 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
-      className={`rounded-xlfont-semibold transition-colors duration-150 ${VARIANTES[variant]} ${TAMANOS[size]} ${
+      className={`rounded-xl font-semibold transition-colors duration-150 ${VARIANTES[variant]} ${TAMANOS[size]} ${
         fullWidth ? "w-full" : ""
       } ${className}`}
       {...props}
