@@ -26,7 +26,7 @@ interface RequestOptions {
 export async function apiFetch<T>(path: string, options: RequestOptions = {}): Promise<T> {
   const esFormData = options.body instanceof FormData;
 
-  const res= await fetch(`${API_URL}${path}`, {
+  const res = await fetch(`${API_URL}${path}`, {
     method: options.method ?? "GET",
     headers: {
       ...(esFormData ? {} : { "Content-Type": "application/json" }),
@@ -36,7 +36,25 @@ export async function apiFetch<T>(path: string, options: RequestOptions = {}): P
     body: esFormData ? (options.body as FormData) : options.body ? JSON.stringify(options.body) : undefined,
   });
 
-  const data = res.status === 204 ? null : await res.json().catch(() => null);
+  if (res.status === 204) return null as T;
+
+  let data: { error?: string } | null;
+  try {
+    data = await res.json();
+  } catch {
+    // La respuesta no es JSON (ej. el proxy/host devolvio el index.html de la
+    // SPA en vez de la API). Antes esto se tragaba como `data = null` y el
+    // caller terminaba guardando null donde esperaba un array/objeto,
+    // reventando mas adelante con errores confusos tipo "cannot read
+    // properties of null". Mejor fallar aqui con un mensaje claro: casi
+    // siempre es VITE_API_URL apuntando a la URL equivocada.
+    throw new ApiError(
+      res.status,
+      res.ok
+        ? "El servidor respondio algo que no es JSON. Revisa que VITE_API_URL apunte a la URL correcta de la API (con /api al final)."
+        : "Error de red inesperado."
+    );
+  }
 
   if (!res.ok) {
     throw new ApiError(res.status, data?.error ?? "Error de red inesperado.");
